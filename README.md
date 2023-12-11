@@ -46,3 +46,30 @@ If you discover a security vulnerability within this boilerplate, please send an
 ### License
 
 MIT: [http://anthony.mit-license.org](http://anthony.mit-license.org)
+
+
+
+Stacked Bar Chart for Each Constituency:
+
+Create a stacked bar chart for each constituency, where each bar represents the total votes, and it's divided into segments for EVM and postal ballot votes. Use different colors for each party. This allows a direct comparison of total votes and the contribution of each voting method in every constituency.
+Grouped Bar Chart:
+
+Use a grouped bar chart where each group represents a constituency, and within each group, you have two bars (one for each party). Differentiate between EVM and postal ballot votes within each bar. This is effective for comparing the performance of the two parties in each constituency.
+Map with Winner Highlighted:
+
+Create a choropleth map of Bhutan where the color intensity represents the winning party in each constituency. You can use blue for one party and red for the other. This gives a clear visual representation of which party won each constituency.
+Line Chart for Cumulative Wins:
+
+Plot a line chart that shows the cumulative number of constituencies won by each party over time (as the constituencies are declared). This allows you to see the trend of which party is leading in the race to form the government.
+Horizontal Bar Chart for Total Wins:
+
+Create a horizontal bar chart where each bar represents the total number of constituencies won by each party. This provides a quick overview of which party is leading in terms of the total number of wins.
+Stacked Area Chart for Cumulative Votes:
+
+Use a stacked area chart to represent the cumulative votes for each party (EVM + postal ballot) over time. This helps in visualizing the overall support for each party as more constituencies are added.
+Pie Chart for Overall Percentage:
+
+Develop a pie chart showing the overall percentage of votes for each party, considering both EVM and postal ballot votes. This gives a quick glance at the relative strength of each party.
+Bubble Chart with Constituency Size:
+
+Create a bubble chart where each bubble represents a constituency. The size of the bubble can represent the total number of votes, and the color can represent the winning party. This provides an intuitive view of the distribution of wins across constituencies.

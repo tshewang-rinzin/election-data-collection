@@ -8,7 +8,7 @@
             <div class="col-md-8">
                 <x-frontend.card>
                     <x-slot name="header">
-                        @lang('Login')
+                        @lang('Login') to submit Election Data
                     </x-slot>
 
                     <x-slot name="body">

@@ -21,7 +21,7 @@
         @include('backend.includes.header')
         @include('includes.partials.read-only')
         @include('includes.partials.logged-in-as')
-        @include('includes.partials.announcements')
+        {{-- @include('includes.partials.announcements') --}}
 
         <div class="c-body">
             <main class="c-main">
@@ -40,8 +40,8 @@
     @stack('before-scripts')
     <script src="{{ mix('js/manifest.js') }}"></script>
     <script src="{{ mix('js/vendor.js') }}"></script>
-    <script src="{{ mix('js/backend.js') }}"></script>
     <livewire:scripts />
+    <script src="{{ mix('js/backend.js') }}"></script>
     @stack('after-scripts')
 </body>
 </html>

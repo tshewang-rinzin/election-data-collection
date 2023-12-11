@@ -2,6 +2,8 @@
 
 use Illuminate\Http\Request;
 
+use App\Http\Controllers\Api\ReportController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -13,6 +15,26 @@ use Illuminate\Http\Request;
 |
 */
 
-//Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+Route::middleware('auth:sanctum')->group(function () {
+    // Get the authenticated user
+    Route::get('/user', function (Request $request) {
+        return $request->user();
+    });
+
+
+
+});
+
+  // Routes handled by ReportController in the Api namespace
+    Route::get('/reports/by-constituencies', [ReportController::class, 'byConstituencies']);
+
+    Route::get('/reports/by-constituencies-with-vote-type', [ReportController::class, 'byConstituenciesWithVoteType']);
+
+    Route::get('/reports/get-wins-by-constituencies', [ReportController::class, 'getWinByConstituenciesData']);
+
+
+// ->get('/user', function (Request $request) {
 //    return $request->user();
-//});
+
+
+// });
