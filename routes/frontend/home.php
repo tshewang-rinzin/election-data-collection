@@ -8,7 +8,7 @@ use Tabuna\Breadcrumbs\Trail;
  * Frontend Controllers
  * All route names are prefixed with 'frontend.'.
  */
-Route::group(['middleware' => ''], function () {
+// Route::group(['middleware' => ''], function () {
 
     Route::get('/', [HomeController::class, 'index'])
         ->name('index')
@@ -28,6 +28,6 @@ Route::group(['middleware' => ''], function () {
             $trail->parent('frontend.index')
                 ->push(__('Terms & Conditions'), route('frontend.pages.terms'));
         });
-    });
+    // });
 
      Route::get('/{any}', [HomeController::class, 'index'])->where('any', '.*');
