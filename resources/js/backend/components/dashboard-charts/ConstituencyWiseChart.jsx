@@ -17,6 +17,122 @@ import api from "../../../services/api"; // Adjust the path based on your file s
 
 import { lighten } from "polished";
 
+const CustomBar = (props) => {
+    const { fill, x, y, width, height } = props;
+
+    // Define the depth of the 3D effect
+    const depth = 10;
+
+    // Create a shadow effect for the 3D effect
+    const shadow = (
+        <rect
+            x={x + width}
+            y={y}
+            width={depth}
+            height={height}
+            fill={lighten(0.1, fill)}
+        />
+    );
+
+    return (
+        <>
+            <rect {...props} />
+            {shadow}
+        </>
+    );
+};
+
+const CustomPieSlice = (props) => {
+    const { cx, cy, innerRadius, outerRadius, startAngle, endAngle, fill } =
+        props;
+
+    // Define the depth of the 3D effect
+    const depth = 15;
+
+    // Calculate the start and end points for the 3D effect
+    const startInnerX = cx + innerRadius * Math.cos(-startAngle * RADIAN);
+    const startInnerY = cy + innerRadius * Math.sin(-startAngle * RADIAN);
+    const startOuterX = cx + outerRadius * Math.cos(-startAngle * RADIAN);
+    const startOuterY = cy + outerRadius * Math.sin(-startAngle * RADIAN);
+
+    const endInnerX = cx + innerRadius * Math.cos(-endAngle * RADIAN);
+    const endInnerY = cy + innerRadius * Math.sin(-endAngle * RADIAN);
+    const endOuterX = cx + outerRadius * Math.cos(-endAngle * RADIAN);
+    const endOuterY = cy + outerRadius * Math.sin(-endAngle * RADIAN);
+
+    // Calculate the control points for the 3D effect
+    const controlInnerX =
+        cx + (innerRadius + depth) * Math.cos(-startAngle * RADIAN);
+    const controlInnerY =
+        cy + (innerRadius + depth) * Math.sin(-startAngle * RADIAN);
+    const controlOuterX =
+        cx + (outerRadius + depth) * Math.cos(-startAngle * RADIAN);
+    const controlOuterY =
+        cy + (outerRadius + depth) * Math.sin(-startAngle * RADIAN);
+
+    return (
+        <>
+            <path
+                {...props}
+                d={`
+                    M${startInnerX},${startInnerY}
+                    L${startOuterX},${startOuterY}
+                    Q${controlOuterX},${controlOuterY}
+                    ${endOuterX},${endOuterY}
+                    L${endInnerX},${endInnerY}
+                    Q${controlInnerX},${controlInnerY}
+                    ${startInnerX},${startInnerY}
+                `}
+                fill={fill}
+            />
+        </>
+    );
+};
+
+// Custom Doughnut Pie Slice
+const CustomDoughnutPieSlice = (props) => {
+    const { cx, cy, innerRadius, outerRadius, startAngle, endAngle, fill } =
+        props;
+
+    // Define the depth of the doughnut hole
+    const holeRadius = 60;
+
+    // Calculate the start and end points
+    const startInnerX = cx + innerRadius * Math.cos(-startAngle * RADIAN);
+    const startInnerY = cy + innerRadius * Math.sin(-startAngle * RADIAN);
+    const startOuterX = cx + outerRadius * Math.cos(-startAngle * RADIAN);
+    const startOuterY = cy + outerRadius * Math.sin(-startAngle * RADIAN);
+
+    const endInnerX = cx + innerRadius * Math.cos(-endAngle * RADIAN);
+    const endInnerY = cy + innerRadius * Math.sin(-endAngle * RADIAN);
+    const endOuterX = cx + outerRadius * Math.cos(-endAngle * RADIAN);
+    const endOuterY = cy + outerRadius * Math.sin(-endAngle * RADIAN);
+
+    // Calculate the control points for the doughnut hole
+    const controlInnerX = cx + holeRadius * Math.cos(-startAngle * RADIAN);
+    const controlInnerY = cy + holeRadius * Math.sin(-startAngle * RADIAN);
+    const controlOuterX = cx + holeRadius * Math.cos(-startAngle * RADIAN);
+    const controlOuterY = cy + holeRadius * Math.sin(-startAngle * RADIAN);
+
+    return (
+        <>
+            <path
+                {...props}
+                d={`
+                    M${startInnerX},${startInnerY}
+                    L${startOuterX},${startOuterY}
+                    Q${controlOuterX},${controlOuterY}
+                    ${endOuterX},${endOuterY}
+                    L${endInnerX},${endInnerY}
+                    Q${controlInnerX},${controlInnerY}
+                    ${startInnerX},${startInnerY}
+                `}
+                fill={fill}
+            />
+        </>
+    );
+};
+
 function ConstituencyWiseChart() {
     const [loading, setLoading] = useState(true);
     const [data, setData] = useState(null);
@@ -204,7 +320,7 @@ function ConstituencyWiseChart() {
                                 // interval={0}
                             />
                             <Tooltip />
-                            <Bar dataKey="evm">
+                            <Bar dataKey="evm" shape={<CustomBar />}>
                                 {partyData.map((entry, index) => (
                                     <Cell
                                         key={`cell-${index}`}
@@ -231,7 +347,7 @@ function ConstituencyWiseChart() {
                                     }
                                 />
                             </Bar>
-                            <Bar dataKey="pb">
+                            <Bar dataKey="pb" shape={<CustomBar />}>
                                 {partyData.map((entry, index) => (
                                     <Cell
                                         key={`cell-${index}`}
@@ -255,7 +371,7 @@ function ConstituencyWiseChart() {
                                     }
                                 />
                             </Bar>
-                            <Bar dataKey="total">
+                            <Bar dataKey="total" shape={<CustomBar />}>
                                 {partyData.map((entry, index) => (
                                     <Cell
                                         key={`cell-${index}`}
@@ -300,6 +416,7 @@ function ConstituencyWiseChart() {
                                 }
                                 fill="#8884d8"
                                 dataKey="total"
+                                shape={<CustomDoughnutPieSlice />}
                             >
                                 {partyData.map((entry, index) => (
                                     <Cell
