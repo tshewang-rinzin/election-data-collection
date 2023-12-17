@@ -32,6 +32,10 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::get('/reports/get-wins-by-constituencies', [ReportController::class, 'getWinByConstituenciesData']);
 
+    Route::get('/reports/count-constituency-wins', [ReportController::class, 'countConstituencyWins']);
+
+    Route::get('/reports/constituency-wise', [ReportController::class, 'votesByConstituency']);
+
 
 // ->get('/user', function (Request $request) {
 //    return $request->user();

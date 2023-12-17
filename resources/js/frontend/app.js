@@ -4,10 +4,22 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-require('../bootstrap');
-require('../plugins');
+import React from "react";
+import {
+    createBrowserRouter,
+    RouterProvider,
+    Route,
+    Link,
+} from "react-router-dom";
+import { createRoot } from "react-dom/client";
+import Dashboard from "../backend/components/Dashboard";
 
-import Vue from 'vue';
+import ConstituencyWise from "../backend/components/dashboard-charts/ConstituencyWiseChart";
+
+require("../bootstrap");
+require("../plugins");
+
+// import Vue from "vue";
 
 /**
  * The following block of code may be used to automatically register your
@@ -20,7 +32,35 @@ import Vue from 'vue';
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
-Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+const router = createBrowserRouter([
+    {
+        path: "/",
+        element: <Dashboard />,
+    },
+    {
+        path: "/constituency-wise",
+        element: <ConstituencyWise />,
+    },
+]);
+
+const root = document.getElementById("root");
+
+if (root) {
+    createRoot(document.getElementById("root")).render(
+        <RouterProvider router={router} />
+    );
+}
+
+// const constituencyWise = document.getElementById("constituency-wise");
+
+// if (constituencyWise) {
+//     createRoot(constituencyWise).render(<ConstituencyWise />);
+// }
+
+// Vue.component(
+//     "example-component",
+//     require("./components/ExampleComponent.vue").default
+// );
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -28,6 +68,6 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-const app = new Vue({
-    el: '#app',
-});
+// const app = new Vue({
+//     el: "#app",
+// });

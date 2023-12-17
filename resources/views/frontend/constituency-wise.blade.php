@@ -95,7 +95,7 @@
                 <div class="row">
 
                 </div>
-                <div id="root"></div>
+                <div id="constituency-wise"></div>
             </div><!--content-->
         </div><!--app-->
 

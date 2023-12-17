@@ -6,3 +6,25 @@
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
+
+
+@font-face {
+    src: url("../../fonts/Oswald-Bold.ttf") format("truetype");
+    font-family: "Oswald-Bold";
+    font-weight: bold;
+}
+
+@font-face {
+    src: url("../../fonts/Oswald-Light.ttf") format("truetype");
+    font-family: "Oswald-Light";
+    // font-weight: "normal";
+}
+
+@font-face {
+    src: url("../../fonts/Oswald-Regular.ttf") format("truetype");
+    font-family: "Oswald-Regular";
+    font-weight: "normal";
+}
+
+
+

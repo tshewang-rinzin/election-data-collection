@@ -186,4 +186,100 @@ class ReportController
         return response()->json(['partyWinsCount' => $partyWinsCount, 'constituenciesList' => $constituenciesList]);
 
     }
+
+    public function votesByConstituency(Request $request)
+    {
+        $constituency = Constituency::with(['dzongkhag'])->find($request->constituency_id);
+        // Fetch data from the votes table
+        $data = Vote::with(['constituency', 'party'])->where(['constituency_id'=>$request->constituency_id])->get();
+
+        // Process data to calculate total votes, EVM votes, and postal ballot votes for each party
+        $partyVotes = [];
+
+        foreach ($data as $entry) {
+            $partyName = $entry->party->name;
+
+            // Extract relevant vote counts
+            $evmVotes = $entry->evm;
+            $postalBallotVotes = $entry->postal_ballot;
+            $totalVotes = $evmVotes + $postalBallotVotes;
+
+            // Accumulate votes for each party
+            if (!isset($partyVotes[$partyName])) {
+                $partyVotes[$partyName] = [
+                    'total_votes' => 0,
+                    'evm_votes' => 0,
+                    'postal_ballot_votes' => 0,
+                ];
+            }
+
+            $partyVotes[$partyName]['total_votes'] += $totalVotes;
+            $partyVotes[$partyName]['evm_votes'] += $evmVotes;
+            $partyVotes[$partyName]['postal_ballot_votes'] += $postalBallotVotes;
+            $partyVotes[$partyName]['color_code'] = $entry->party->color_code;
+            $partyVotes[$partyName]['abbreviation'] = $entry->party->abbreviation;
+
+        }
+
+        return response()->json(['partyVotes' => $partyVotes, 'constituency' => $constituency ]);
+
+    }
+
+    public function countConstituencyWins(Request $request)
+    {
+        // Fetch data from the votes table
+        $data = Vote::with(['constituency', 'party'])->get();
+
+        // Process data to calculate wins for each party in each constituency
+        $partyWins = [];
+
+        foreach ($data as $entry) {
+            $constituencyId = $entry->constituency_id;
+            $partyName = $entry->party->name;
+            $partyAbbreviation = $entry->party->abbreviation; // Add this line
+            $partyColorCode = $entry->party->color_code; // Add this line
+
+            // Calculate combined votes for the current party in the current constituency
+            $totalVotes = $entry->evm + $entry->postal_ballot;
+
+            // Check if this party has more votes than the current winner in this constituency
+            if (!isset($partyWins[$constituencyId][$partyName]) || $totalVotes > $partyWins[$constituencyId][$partyName]['votes']) {
+                $partyWins[$constituencyId][$partyName] = [
+                    'votes' => $totalVotes,
+                    'abbreviation' => $partyAbbreviation,
+                    'color_code' => $partyColorCode,
+                ];
+            }
+        }
+
+        // Count the number of constituencies won by each party
+        $partyWinsCount = [];
+
+        foreach ($partyWins as $constituencyWins) {
+            $maxVotes = max(array_column($constituencyWins, 'votes'));
+            foreach ($constituencyWins as $party => $partyData) {
+                if ($partyData['votes'] === $maxVotes) {
+                    $partyWinsCount[] = [
+                        'name' => $party,
+                        'abbreviation' => $partyData['abbreviation'],
+                        'color_code' => $partyData['color_code'],
+                        'value' => 1,
+                    ];
+                }
+            }
+        }
+
+        // Sum the number of constituencies won for each party
+        $partyWinsCount = array_reduce($partyWinsCount, function ($carry, $item) {
+            $key = array_search($item['name'], array_column($carry, 'name'));
+            if ($key !== false) {
+                $carry[$key]['value']++;
+            } else {
+                $carry[] = $item;
+            }
+            return $carry;
+        }, []);
+
+        return response()->json(['partyWinsCount' => $partyWinsCount]);
+    }
 }

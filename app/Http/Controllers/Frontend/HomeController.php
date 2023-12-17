@@ -14,4 +14,9 @@ class HomeController
     {
         return view('frontend.index');
     }
+
+    public function constituencyWise()
+    {
+        return view('frontend.constituency-wise');
+    }
 }

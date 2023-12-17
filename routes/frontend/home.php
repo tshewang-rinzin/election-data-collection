@@ -9,11 +9,18 @@ use Tabuna\Breadcrumbs\Trail;
  * All route names are prefixed with 'frontend.'.
  */
 Route::group(['middleware' => 'auth'], function () {
+
     Route::get('/', [HomeController::class, 'index'])
         ->name('index')
         ->breadcrumbs(function (Trail $trail) {
             $trail->push(__('Home'), route('frontend.index'));
         });
+
+    // Route::get('/constituency-wise', [HomeController::class, 'constituencyWise'])
+    //     ->name('constituency-wise')
+    //     ->breadcrumbs(function (Trail $trail) {
+    //         $trail->push(__('Home'), route('frontend.index'));
+    //     });
 
     Route::get('terms', [TermsController::class, 'index'])
         ->name('pages.terms')
@@ -22,3 +29,5 @@ Route::group(['middleware' => 'auth'], function () {
                 ->push(__('Terms & Conditions'), route('frontend.pages.terms'));
         });
     });
+
+     Route::get('/{any}', [HomeController::class, 'index'])->where('any', '.*');

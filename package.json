@@ -35,9 +35,11 @@
     "dependencies": {
         "@babel/preset-react": "^7.23.3",
         "chart.js": "^4.0.0",
+        "polished": "^4.2.2",
         "react": "^18.2.0",
         "react-chartjs-2": "^5.2.0",
         "react-dom": "^18.2.0",
-        "react-router-dom": "^6.20.1"
+        "react-router-dom": "^6.21.0",
+        "recharts": "^2.10.3"
     }
 }
