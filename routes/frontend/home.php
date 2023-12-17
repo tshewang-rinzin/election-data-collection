@@ -8,7 +8,7 @@ use Tabuna\Breadcrumbs\Trail;
  * Frontend Controllers
  * All route names are prefixed with 'frontend.'.
  */
-Route::group(['middleware' => 'auth'], function () {
+Route::group(['middleware' => ''], function () {
 
     Route::get('/', [HomeController::class, 'index'])
         ->name('index')
