@@ -288,8 +288,8 @@ function ConstituencyWiseChart() {
                             top: -150,
                         }}
                     />
-                    <img src="/img/FRAME1.PNG" height={400} />
-                    <img src="/img/FRAME2.PNG" height={400} />
+                    <img src="/img/FRAME1.png" height={400} />
+                    <img src="/img/FRAME2.png" height={400} />
 
                     <ResponsiveContainer width={500} height={400}>
                         <BarChart
