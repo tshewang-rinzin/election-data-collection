@@ -3,3 +3,48 @@
 // Coreui
 @import '~@coreui/coreui/scss/coreui';
 @import '~@coreui/icons/css/free.min.css';
+
+
+.constituency-chart-container {
+    width: "1600px";
+    height: "900px";
+    position: "relative";
+    border: "1px solid white";
+    margin-top: "20px";
+}
+
+.constituency-chart-main-container {
+    width: 100%;
+    padding-top: 56.25%;
+    position: relative;
+    border: 1px solid white;
+    margin-top: 20px;
+}
+
+.constituency-chart-content {
+    color: white;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    box-sizing: border-box;
+    padding: 20px;
+}
+
+
+.constituency-chart-flex-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.constituency-chart-frame-container {
+    display: flex;
+    width: 40%;
+    margin-right: 5%;
+    background: red;
+}
+
+.constituency-chart-chart-grid {
+    width: 55%;
+}

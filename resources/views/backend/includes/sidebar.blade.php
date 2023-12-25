@@ -17,24 +17,72 @@
                 icon="c-sidebar-nav-icon cil-speedometer"
                 :text="__('Dashboard')" />
         </li>
-        <li class="c-sidebar-nav-item">
+        {{-- <li class="c-sidebar-nav-item">
             <x-utils.link
                 class="c-sidebar-nav-link"
                 :href="route('admin.votes.create')"
                 :active="activeClass(Route::is('admin.dashboard'), 'c-active')"
                 icon="c-sidebar-nav-icon cil-cloud-upload"
                 :text="__('Submit Election Result')" />
-        </li>
+        </li> --}}
+        <li class="c-sidebar-nav-dropdown {{ activeClass(Route::is('admin.candidates.*'), 'c-open c-show') }}">
+                <x-utils.link
+                    href="#"
+                    icon="c-sidebar-nav-icon cil-hand-point-up"
+                    class="c-sidebar-nav-dropdown-toggle"
+                    :text="__('Manage Votes')" />
 
+                <ul class="c-sidebar-nav-dropdown-items">
+                    <li class="c-sidebar-nav-item">
+                        <x-utils.link
+                            :href="route('admin.votes.create')"
+                            class="c-sidebar-nav-link"
+                            :text="__('Add')"
+                            :active="activeClass(Route::is('admin.candidates.create'), 'c-active')" />
+                    </li>
+                    <li class="c-sidebar-nav-item">
+                            <x-utils.link
+                                :href="route('admin.votes.index')"
+                                class="c-sidebar-nav-link"
+                                :text="__('List')"
+                                :active="activeClass(Route::is('admin.candidates.index'), 'c-active')" />
+                    </li>
+                </ul>
+
+            </li>
+        <li class="c-sidebar-nav-dropdown {{ activeClass(Route::is('admin.candidates.*'), 'c-open c-show') }}">
+                <x-utils.link
+                    href="#"
+                    icon="c-sidebar-nav-icon cil-user"
+                    class="c-sidebar-nav-dropdown-toggle"
+                    :text="__('Manage Candidates')" />
+
+                <ul class="c-sidebar-nav-dropdown-items">
+                    <li class="c-sidebar-nav-item">
+                            <x-utils.link
+                                :href="route('admin.candidates.index')"
+                                class="c-sidebar-nav-link"
+                                :text="__('List')"
+                                :active="activeClass(Route::is('admin.candidates.index'), 'c-active')" />
+                    </li>
+                    <li class="c-sidebar-nav-item">
+                        <x-utils.link
+                            :href="route('admin.candidates.create')"
+                            class="c-sidebar-nav-link"
+                            :text="__('Add')"
+                            :active="activeClass(Route::is('admin.candidates.create'), 'c-active')" />
+                    </li>
+                </ul>
+
+            </li>
         <li class="c-sidebar-nav-item">
             <x-utils.link
                 class="c-sidebar-nav-link"
-                :href="route('admin.election-result.index')"
+                :href="route('admin.dashboard')"
                 :active="activeClass(Route::is('admin.dashboard'), 'c-active')"
-                icon="c-sidebar-nav-icon cil-eye-open"
-                :text="__('View Result')" />
+                icon="c-sidebar-nav-icon cil-chart"
+                :text="__('Result')" />
         </li>
-
         @if (
             $logged_in_user->hasAllAccess() ||
             (

@@ -15,6 +15,12 @@
 }
 
 @font-face {
+    src: url("../../fonts/Oswald-SemiBold.ttf") format("truetype");
+    font-family: "Oswald-SemiBold";
+    // font-weight: bold;
+}
+
+@font-face {
     src: url("../../fonts/Oswald-Light.ttf") format("truetype");
     font-family: "Oswald-Light";
     // font-weight: "normal";
@@ -26,5 +32,150 @@
     font-weight: "normal";
 }
 
+
+.constituency-chart-container {
+    width: 1600px;
+    height: 900px;
+    position: relative;
+    border: 1px solid white;
+    margin-top: 20px;
+}
+
+.constituency-chart-corner-img {
+    position: absolute;
+    width: 80px;
+    left: 20px;
+    top: 20px;
+}
+
+.constituency-chart-main-container {
+    color: white;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    margin: 0 auto; // Center horizontally
+    max-width: 1600px; // Set maximum width
+    max-height: 900px; // Set maximum height
+}
+
+.constituency-chart-content {
+    color: white;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    box-sizing: border-box;
+    padding: 20px;
+}
+
+.constituency-chart-flex-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.constituency-chart-frame-container {
+    display: flex;
+    width: 650px;
+    margin-right: 20px;
+    // background: red
+}
+
+.constituency-chart-frame {
+    border-radius: 50px; // Adjust the border radius as needed
+    min-height: 300px; // Adjust the minimum height as needed
+    width: 600px; // Adjust the minimum width as needed
+    // overflow: "hidden", // To hide content that exceeds the border radius
+    max-height: 450px;
+    background: rgba(255, 255, 255, 0.2);
+    margin-left: 20px;
+    padding: 10px 30px;
+}
+
+.constituency-chart-chart-grid-1 {
+    width: 450px;
+}
+
+.constituency-chart-chart-grid-2 {
+    margin-right: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end; // Align to the bottom
+    width: 300px;
+    height: 450px;
+    padding-left: 100px;
+}
+
+
+.party_name {
+    // Styles for the party name
+    margin-top: 5px;
+    font-size: 20px;
+    font-family: "Oswald-Regular"; // Replace "YourFontFamily" with the actual font you want to use
+    text-transform: uppercase; // Convert text to uppercase
+    // Add other styling properties as needed
+}
+
+.party_logo {
+
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    img {
+
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+}
+
+.votes-container{
+    margin-top: 20px;
+    .vote-row {
+
+            display: flex;
+            justify-content: space-between;
+            color: 'white';
+
+            .vote-label {
+                text-align: left;
+                font-family: "Oswald-Regular";
+                font-size: 18px;
+
+                &.grand-total {
+                    font-family: "Oswald-SemiBold";
+                }
+
+            }
+            .vote-value {
+                text-align: right;
+                font-family: "Oswald-Regular";
+                font-size: 18px;
+
+                // Style for the grand total row
+                &.grand-total{
+                    font-family: "Oswald-SemiBold";
+                }
+            }
+        }
+}
+
+
+.candidate_img {
+
+    // Styles for the candidate image container
+    img {
+        max-width: 100%;
+        width: auto; // Make the image take 100% of the width of the container
+        height: 200px; // Maintain the aspect ratio
+        border-radius: 50%; // Make the image circular
+        // Add other styling properties as needed
+    }
+}
 
 

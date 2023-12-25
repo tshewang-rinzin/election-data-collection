@@ -28,7 +28,7 @@ class VoteController extends Controller
 
         // Pass the data to the view
         return view(
-            'backend.vote.create',
+            'backend.vote.create-edit',
             compact('dzongkhags','constituencies', 'parties')
         );
     }

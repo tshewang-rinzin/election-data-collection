@@ -189,9 +189,9 @@ class ReportController
 
     public function votesByConstituency(Request $request)
     {
-        $constituency = Constituency::with(['dzongkhag'])->find($request->constituency_id);
+        $constituency = Constituency::with(['dzongkhag', 'candidates.party'])->find($request->constituency_id);
         // Fetch data from the votes table
-        $data = Vote::with(['constituency', 'party'])->where(['constituency_id'=>$request->constituency_id])->get();
+        $data = Vote::with(['constituency', 'party'])->where(['constituency_id'=>$request->constituency_id])->orderBy('party_id')->get();
 
         // Process data to calculate total votes, EVM votes, and postal ballot votes for each party
         $partyVotes = [];
@@ -212,7 +212,8 @@ class ReportController
                     'postal_ballot_votes' => 0,
                 ];
             }
-
+            $partyVotes[$partyName]['party_id'] = $entry->party->id;
+            $partyVotes[$partyName]['logo'] = $entry->party->logo;
             $partyVotes[$partyName]['total_votes'] += $totalVotes;
             $partyVotes[$partyName]['evm_votes'] += $evmVotes;
             $partyVotes[$partyName]['postal_ballot_votes'] += $postalBallotVotes;
@@ -220,6 +221,8 @@ class ReportController
             $partyVotes[$partyName]['abbreviation'] = $entry->party->abbreviation;
 
         }
+
+
 
         return response()->json(['partyVotes' => $partyVotes, 'constituency' => $constituency ]);
 
