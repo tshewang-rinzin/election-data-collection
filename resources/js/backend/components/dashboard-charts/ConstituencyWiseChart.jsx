@@ -252,39 +252,14 @@ function ConstituencyWiseChart() {
                 />
 
                 <div className="constituency-chart-main-container">
-                    <div className="text-center" style={{ color: "white" }}>
-                        <h2
-                            className="text-center"
-                            style={{
-                                fontFamily: "Oswald-Light",
-                                color: "#ffde00",
-                                fontSize: "40px",
-                            }}
-                        >
+                    <div className="constituency-wise-header">
+                        <h2 className="text-center">
                             National Assembly Elections 2023-2024
                         </h2>
-                        <h1
-                            className="text-center"
-                            style={{
-                                fontFamily: "Oswald-Light",
-                                fontSize: "50px",
-                            }}
-                        >
+                        <h1 className="text-center">
                             GENERAL ROUND PROVISIONAL RESULTS
                         </h1>
-                        <div
-                            className="text-center mb-0"
-                            style={{
-                                fontFamily: "Oswald-Light",
-                                color: "#000",
-                                fontSize: "25px",
-                                backgroundColor: "#ffde00",
-                                display: "inline-block", // Contain based on text length
-                                borderRadius: "15px", // Apply round borders
-                                paddingLeft: "15px",
-                                paddingRight: "15px",
-                            }}
-                        >
+                        <div className="text-center mb-0 constituency-info">
                             {constituency.name} ({constituency.dzongkhag.name})
                         </div>
                     </div>
@@ -315,15 +290,22 @@ function ConstituencyWiseChart() {
                                                             item.partyId
                                                         ) {
                                                             return (
-                                                                <img
-                                                                    key={
-                                                                        candidate.id
-                                                                    }
-                                                                    src={
-                                                                        candidate.profile_image
-                                                                    }
-                                                                    alt={`${candidate.name}'s Image`}
-                                                                />
+                                                                <>
+                                                                    <img
+                                                                        key={
+                                                                            candidate.id
+                                                                        }
+                                                                        src={
+                                                                            candidate.profile_image
+                                                                        }
+                                                                        alt={`${candidate.name}'s Image`}
+                                                                    />
+                                                                    <div>
+                                                                        {
+                                                                            candidate.name
+                                                                        }
+                                                                    </div>
+                                                                </>
                                                             );
                                                         }
                                                         return null;
@@ -364,7 +346,7 @@ function ConstituencyWiseChart() {
                                 id="chartGrid"
                                 // style={{ width: "400px", marginRight: "20px" }}
                             >
-                                <ResponsiveContainer width={500} height={450}>
+                                <ResponsiveContainer width={400}>
                                     <BarChart
                                         data={partyData}
                                         margin={{
@@ -392,8 +374,9 @@ function ConstituencyWiseChart() {
                                             // width={100} // Adjust the width as needed
                                             // interval={0}
                                         />
-                                        <Tooltip />
+                                        {/* <Tooltip /> */}
                                         <Bar
+                                            activeBar={false}
                                             dataKey="evm"
                                             shape={<CustomBar />}
                                         >
@@ -426,7 +409,11 @@ function ConstituencyWiseChart() {
                                                 }
                                             />
                                         </Bar>
-                                        <Bar dataKey="pb" shape={<CustomBar />}>
+                                        <Bar
+                                            activeBar={false}
+                                            dataKey="pb"
+                                            shape={<CustomBar />}
+                                        >
                                             {partyData.map((entry, index) => (
                                                 <Cell
                                                     key={`cell-${index}`}
@@ -457,6 +444,7 @@ function ConstituencyWiseChart() {
                                             />
                                         </Bar>
                                         <Bar
+                                            activeBar={false}
                                             dataKey="total"
                                             shape={<CustomBar />}
                                         >
@@ -495,8 +483,8 @@ function ConstituencyWiseChart() {
                             >
                                 <ResponsiveContainer
                                     width={300}
-                                    height={450}
-                                    className="recharts-responsive-container"
+                                    // height={400}
+                                    // className="recharts-responsive-container"
                                 >
                                     <PieChart>
                                         <Pie
@@ -523,7 +511,7 @@ function ConstituencyWiseChart() {
                                                 />
                                             ))}
                                         </Pie>
-                                        <Tooltip />
+                                        {/* <Tooltip /> */}
                                     </PieChart>
                                 </ResponsiveContainer>
                             </div>
@@ -531,14 +519,15 @@ function ConstituencyWiseChart() {
                     </div>
                 </div>
                 <img
+                    className="constituency-chart-corner-img-right"
                     src="/img/CORNER.png"
-                    style={{
-                        position: "absolute",
-                        width: 80,
-                        right: 20,
-                        bottom: 20,
-                        transform: "rotate(180deg)",
-                    }}
+                    // style={{
+                    //     position: "absolute",
+                    //     width: 60,
+                    //     right: 10,
+                    //     bottom: 10,
+                    //     transform: "rotate(180deg)",
+                    // }}
                 />
             </div>
         </div>

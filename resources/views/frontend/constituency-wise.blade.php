@@ -74,8 +74,8 @@
         {{-- @include('includes.partials.announcements') --}}
 
         <div id="app" class="flex-center position-ref">
-            <div class="top-right links">
-                @auth
+            {{-- <div class="top-right links"> --}}
+                {{-- @auth
                     @if ($logged_in_user->isUser())
                         <a href="{{ route('frontend.user.dashboard') }}">@lang('Dashboard')</a>
                     @endif
@@ -87,8 +87,9 @@
                     @if (config('boilerplate.access.user.registration'))
                         <a href="{{ route('frontend.auth.register') }}">@lang('Register')</a>
                     @endif
-                @endauth
-            </div><!--top-right-->
+                @endauth --}}
+            {{-- </div> --}}
+            <!--top-right-->
 
             <div class="content">
                 {{-- @include('includes.partials.messages') --}}
