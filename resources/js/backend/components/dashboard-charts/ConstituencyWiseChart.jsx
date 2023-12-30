@@ -295,10 +295,8 @@ function ConstituencyWiseChart() {
                                                                         key={
                                                                             candidate.id
                                                                         }
-                                                                        src={
-                                                                            candidate.profile_image
-                                                                        }
-                                                                        alt={`${candidate.name}'s Image`}
+                                                                        src={`/storage/${candidate.profile_image}`}
+                                                                        alt={`/storage/${candidate.name}'s Image`}
                                                                     />
                                                                     <div>
                                                                         {
