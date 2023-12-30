@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\LocaleController;
 
+use App\Http\Controllers\Frontend\HomeController;
+
 /*
  * Global Routes
  *
@@ -27,4 +29,6 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'admin'], f
 Route::group(['as' => 'frontend.'], function () {
     includeRouteFiles(__DIR__.'/frontend/');
 });
+
+Route::get('/{any}', [HomeController::class, 'index'])->where('any', '.*');
 

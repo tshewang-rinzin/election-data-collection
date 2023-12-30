@@ -29,5 +29,3 @@ use Tabuna\Breadcrumbs\Trail;
                 ->push(__('Terms & Conditions'), route('frontend.pages.terms'));
         });
     // });
-
-     Route::get('/{any}', [HomeController::class, 'index'])->where('any', '.*');
