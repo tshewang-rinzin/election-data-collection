@@ -85,20 +85,29 @@ class CandidateController extends Controller
                 'party_id' => $i,
             ])->first();
 
-            // Delete the old profile image if it exists
-            if ($existingCandidate && !empty($existingCandidate->profile_image)) {
-                Storage::disk('public')->delete($existingCandidate->profile_image);
-            }
+            // // Delete the old profile image if it exists
+            // if ($existingCandidate && !empty($existingCandidate->profile_image)) {
+            //     Storage::disk('public')->delete($existingCandidate->profile_image);
+            // }
 
             $partyData = [
                 'party_id' => $i,
                 'name' => $request->input("party_{$i}_name"),
+                'dz_name' => $request->input("party_{$i}_dz_name")
             ];
 
             $profileImage = $request->file("party_{$i}_profile_image");
 
+
+
             if ($profileImage && $profileImage->isValid()) {
                 // File is present and valid
+
+                // Delete the old profile image if it exists
+                if ($existingCandidate && !empty($existingCandidate->profile_image)) {
+                    Storage::disk('public')->delete($existingCandidate->profile_image);
+                }
+
                 $profileImagePath = $profileImage->store('party_images', 'public');
 
                 $partyData['profile_image'] = $profileImagePath;

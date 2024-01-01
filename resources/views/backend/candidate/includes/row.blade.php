@@ -20,6 +20,10 @@
 </x-livewire-tables::bs4.table.cell>
 
 <x-livewire-tables::bs4.table.cell>
+    {{ $row->dz_name }}
+</x-livewire-tables::bs4.table.cell>
+
+<x-livewire-tables::bs4.table.cell>
     @if ($row->profile_image)
         <img src="{{ asset('storage/' . $row->profile_image) }}" alt="Profile Image" class="img-thumbnail" style="max-width: auto; max-height: 100px;">
     @else

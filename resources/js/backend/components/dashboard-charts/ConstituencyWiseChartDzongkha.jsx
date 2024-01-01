@@ -133,7 +133,7 @@ const CustomDoughnutPieSlice = (props) => {
     );
 };
 
-function ConstituencyWiseChart() {
+function ConstituencyWiseChartDzongkha() {
     const [loading, setLoading] = useState(true);
     const [data, setData] = useState(null);
     const location = useLocation();
@@ -173,6 +173,7 @@ function ConstituencyWiseChart() {
 
     const partyData = Object.keys(partyVotes).map((partyName) => ({
         name: partyName,
+        dz_name: partyVotes[partyName].dz_name,
         total: partyVotes[partyName].total_votes,
         evm: partyVotes[partyName].evm_votes,
         pb: partyVotes[partyName].postal_ballot_votes,
@@ -245,7 +246,7 @@ function ConstituencyWiseChart() {
     const colors = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042", "red", "pink"];
 
     return (
-        <div>
+        <div className="dz">
             <div className="constituency-chart-container">
                 <img
                     src="/img/CORNER.png"
@@ -255,13 +256,14 @@ function ConstituencyWiseChart() {
                 <div className="constituency-chart-main-container">
                     <div className="constituency-wise-header">
                         <h2 className="text-center">
-                            National Assembly Elections 2023-2024
+                            རྒྱལ་ཡོངས་ཚོགས་འསྡུའི་བཙག་འཐུ། ༢༠༢༣-༢༠༢༤
                         </h2>
                         <h1 className="text-center">
-                            GENERAL ROUND PROVISIONAL RESULTS
+                            སྤྱིར་བཏང་བཙག་འཐུའི་ གནས་སྐབས་ཀྱི་གྲུབ་འབྲས།
                         </h1>
                         <div className="text-center mb-0 constituency-info">
-                            {constituency.name} ({constituency.dzongkhag.name})
+                            {constituency.dz_name} (
+                            {constituency.dzongkhag.dz_name})
                         </div>
                     </div>
                     <div
@@ -280,7 +282,8 @@ function ConstituencyWiseChart() {
                                                 <img src={item.logo} />
                                             </div>
                                             <div className="party_name">
-                                                {item.name}
+                                                {item.dz_name}
+                                                {/* བྷུ་ཊཱན་རྟེན་འབྲེལ་ཚོགས་པ། */}
                                             </div>
                                             <div className="candidate_img">
                                                 {/* Find the candidate image for the respective party */}
@@ -301,7 +304,7 @@ function ConstituencyWiseChart() {
                                                                     />
                                                                     <div className="candidate-name">
                                                                         {
-                                                                            candidate.name
+                                                                            candidate.dz_name
                                                                         }
                                                                     </div>
                                                                 </>
@@ -314,7 +317,7 @@ function ConstituencyWiseChart() {
                                             <div className="votes-container">
                                                 <div className="vote-row">
                                                     <div className="vote-label">
-                                                        PB:
+                                                        འགྲེམ་ཐོག་ཚོགས་རྒྱན།
                                                     </div>
                                                     <div className="vote-value">
                                                         {item.pb}
@@ -322,7 +325,7 @@ function ConstituencyWiseChart() {
                                                 </div>
                                                 <div className="vote-row">
                                                     <div className="vote-label">
-                                                        EVM:
+                                                        ཚོགས་རྒྱན་འཕྲུལ་ཆས།
                                                     </div>
                                                     <div className="vote-value">
                                                         {item.evm}
@@ -330,7 +333,7 @@ function ConstituencyWiseChart() {
                                                 </div>
                                                 <div className="vote-row">
                                                     <div className="vote-label grand-total">
-                                                        Grand Total:
+                                                        ཚོགས་རྒྱན་ཡོངས་བསྡོམས།
                                                     </div>
                                                     <div className="vote-value grand-total">
                                                         {item.total}
@@ -533,4 +536,4 @@ function ConstituencyWiseChart() {
     );
 }
 
-export default ConstituencyWiseChart;
+export default ConstituencyWiseChartDzongkha;

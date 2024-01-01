@@ -2,6 +2,8 @@ import "alpinejs";
 
 import React from "react";
 import { createRoot } from "react-dom/client";
+import "../i18n";
+
 import ElectionResults from "./components/ElectionResults";
 import Dashboard from "./components/Dashboard";
 

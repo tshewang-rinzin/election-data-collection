@@ -25,7 +25,7 @@
                 icon="c-sidebar-nav-icon cil-cloud-upload"
                 :text="__('Submit Election Result')" />
         </li> --}}
-        <li class="c-sidebar-nav-dropdown {{ activeClass(Route::is('admin.candidates.*'), 'c-open c-show') }}">
+        <li class="c-sidebar-nav-dropdown {{ activeClass(Route::is('admin.votes.*'), 'c-open c-show') }}">
                 <x-utils.link
                     href="#"
                     icon="c-sidebar-nav-icon cil-hand-point-up"
@@ -38,7 +38,7 @@
                             :href="route('admin.votes.create')"
                             class="c-sidebar-nav-link"
                             :text="__('Add')"
-                            :active="activeClass(Route::is('admin.candidates.create'), 'c-active')" />
+                            :active="activeClass(Route::is('admin.votes.create'), 'c-active')" />
                     </li>
                     <li class="c-sidebar-nav-item">
                             <x-utils.link

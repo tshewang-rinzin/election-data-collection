@@ -97,7 +97,9 @@ class CandidatesTable extends DataTableComponent
                 ->searchable(),
             Column::make(__('Party'), 'party.name')
                 ->searchable(),
-            Column::make(__('Candidate Name'), 'name')
+            Column::make(__('Candidate Name (English)'), 'name')
+                ->searchable(),
+            Column::make(__('Candidate Name (Dzongkha)'), 'name')
                 ->searchable(),
             Column::make(__('Profile Image'), 'profile_image'),
             Column::make(__('Actions')),

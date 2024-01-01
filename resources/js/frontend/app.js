@@ -15,6 +15,7 @@ import { createRoot } from "react-dom/client";
 import Dashboard from "../backend/components/Dashboard";
 
 import ConstituencyWise from "../backend/components/dashboard-charts/ConstituencyWiseChart";
+import ConstituencyWiseDzongkha from "../backend/components/dashboard-charts/ConstituencyWiseChartDzongkha";
 
 require("../bootstrap");
 require("../plugins");
@@ -40,6 +41,10 @@ const router = createBrowserRouter([
     {
         path: "/constituency-wise",
         element: <ConstituencyWise />,
+    },
+    {
+        path: "/dz/constituency-wise",
+        element: <ConstituencyWiseDzongkha />,
     },
 ]);
 

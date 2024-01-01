@@ -218,6 +218,7 @@ class ReportController
             $partyVotes[$partyName]['evm_votes'] += $evmVotes;
             $partyVotes[$partyName]['postal_ballot_votes'] += $postalBallotVotes;
             $partyVotes[$partyName]['color_code'] = $entry->party->color_code;
+            $partyVotes[$partyName]['dz_name'] = $entry->party->dz_name;
             $partyVotes[$partyName]['abbreviation'] = $entry->party->abbreviation;
 
         }
@@ -239,6 +240,7 @@ class ReportController
         foreach ($data as $entry) {
             $constituencyId = $entry->constituency_id;
             $partyName = $entry->party->name;
+            $partyDzName = $entry->party->dz_name;
             $partyAbbreviation = $entry->party->abbreviation; // Add this line
             $partyColorCode = $entry->party->color_code; // Add this line
 

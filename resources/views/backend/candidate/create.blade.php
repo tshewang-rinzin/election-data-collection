@@ -25,7 +25,7 @@
                                 <div class="col-sm-9">
                                     <div class="row">
                                         <div class="col-sm-4">
-                                    <select name="dzongkhag_id" class="form-control" required x-on:change="populateConstituencies($event.target.value)" {{ $selectedConstituency ? 'disabled': ''}}>
+                                    <select name="dzongkhag_id" class="form-control" required x-on:change="populateConstituencies($event.target.value)" {{ $selectedConstituency ? 'readonly': ''}}>
                                         <option value="">@lang('Select Dzongkhag')</option>
                                         @foreach($dzongkhags as $dzongkhag)
                                             <option value="{{ $dzongkhag->id }}" {{ (old('dzongkhag_id') == $dzongkhag->id || $selectedConstituency && $selectedConstituency->dzongkhag_id == $dzongkhag->id) ? 'selected' : '' }}>
@@ -43,7 +43,7 @@
                                 <div class="col-sm-9">
                                     <div class="row">
                                         <div class="col-sm-4">
-                                            <select name="constituency_id" id="constituency" class="form-control" required x-on:change="updateSelectedConstituency()" {{ request('constituency_id') ? 'disabled': '' }}>
+                                            <select name="constituency_id" id="constituency" class="form-control" required x-on:change="updateSelectedConstituency()" {{ request('constituency_id') ? 'readonly': '' }}>
                                                 <option value="">@lang('Select Constituency')</option>
                                                 @foreach($constituencies as $constituency)
                                                     <option value="{{ $constituency->id }}" {{ (old('constituency_id') == $constituency->id || request('constituency_id') == $constituency->id) ? 'selected' : '' }}>
@@ -74,9 +74,17 @@
                                         </div>
                                         <div class="row mb-2">
                                             <div class="col-sm-4">
-                                                <label for="{{ 'party_' . $party->id . '_name' }}" class="">@lang("Candidate Name")</label>
+                                                <label for="{{ 'party_' . $party->id . '_name' }}" class="">@lang("Candidate Name in English")</label>
                                                 <input type="text" name="{{ 'party_' . $party->id . '_name' }}" id="{{ 'party_' . $party->id . '_name' }}" class="form-control" required
                                                     value="{{ old('party_' . $party->id . '_name', $candidates->where('party_id', $party->id)->first()->name ?? '') }}"
+                                                />
+                                            </div>
+                                        </div>
+                                        <div class="row mb-2">
+                                            <div class="col-sm-4">
+                                                <label for="{{ 'party_' . $party->id . '_name' }}" class="">@lang("Candidate Name in Dzongkha")</label>
+                                                <input type="text" name="{{ 'party_' . $party->id . '_dz_name' }}" id="{{ 'party_' . $party->id . '_dz_name' }}" class="form-control" required
+                                                    value="{{ old('party_' . $party->id . '_dz_name', $candidates->where('party_id', $party->id)->first()->dz_name ?? '') }}"
                                                 />
                                             </div>
                                         </div>
@@ -84,7 +92,7 @@
                                             <div class="col-sm-4">
                                                 <label for="{{ 'party_' . $party->id . '_profile_image' }}" class="">@lang("Profile Picture")</label>
                                                 <div class="d-flex align-items-center">
-                                                    <input type="file" name="{{ 'party_' . $party->id . '_profile_image' }}" id="{{ 'party_' . $party->id . '_profile_image' }}" class="form-control-file" accept="image/*" required>
+                                                    <input type="file" name="{{ 'party_' . $party->id . '_profile_image' }}" id="{{ 'party_' . $party->id . '_profile_image' }}" class="form-control-file" accept="image/*" {{ !$selectedConstituency ?? required }}>
                                                     @if($candidates->where('party_id', $party->id)->isNotEmpty())
                                                         @if(!empty($candidates->where('party_id', $party->id)->first()->profile_image))
                                                             <img src="{{ asset('storage/' . $candidates->where('party_id', $party->id)->first()->profile_image) }}" alt="Profile Image" class="img-thumbnail ml-2" style="max-width: 100px;">
