@@ -243,6 +243,7 @@ class ReportController
             $partyDzName = $entry->party->dz_name;
             $partyAbbreviation = $entry->party->abbreviation; // Add this line
             $partyColorCode = $entry->party->color_code; // Add this line
+            $partyLogo = $entry->party->logo;
 
             // Calculate combined votes for the current party in the current constituency
             $totalVotes = $entry->evm + $entry->postal_ballot;
@@ -253,6 +254,8 @@ class ReportController
                     'votes' => $totalVotes,
                     'abbreviation' => $partyAbbreviation,
                     'color_code' => $partyColorCode,
+                    'dz_name' => $partyDzName,
+                    'logo' => $partyLogo
                 ];
             }
         }
@@ -266,9 +269,11 @@ class ReportController
                 if ($partyData['votes'] === $maxVotes) {
                     $partyWinsCount[] = [
                         'name' => $party,
+                        'dz_name' => $partyData['dz_name'],
                         'abbreviation' => $partyData['abbreviation'],
                         'color_code' => $partyData['color_code'],
                         'value' => 1,
+                        'logo' => $partyData['logo']
                     ];
                 }
             }

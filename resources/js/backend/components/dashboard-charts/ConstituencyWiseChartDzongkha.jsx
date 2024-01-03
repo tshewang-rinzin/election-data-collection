@@ -133,6 +133,74 @@ const CustomDoughnutPieSlice = (props) => {
     );
 };
 
+const OverallResult = () => {
+    const [loading, setLoading] = useState(true);
+    const [data, setData] = useState();
+
+    // const partyColors = {
+    //     "Bhutan Tendrel Party": "#31417d",
+    //     "People's Democratic Party": "#89301e",
+    //     // Add more party colors as needed
+    // };
+
+    useEffect(() => {
+        const getData = async () => {
+            try {
+                const response = await api.get(
+                    "/reports/count-constituency-wins"
+                );
+                console.log("response123", response);
+                setData(response.partyWinsCount);
+            } catch (error) {
+                console.error("Error fetching data:", error);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        getData();
+    }, []);
+
+    return (
+        <div className="card d-inline-block overall-result-container">
+            <div className="card-header bg-success text-white">
+                འདེམས་ཁྲི་ཡོངས་བསྡོམས།
+            </div>
+            <div className="card-body p-0">
+                {loading ? (
+                    <p>Loading...</p>
+                ) : (
+                    <table className="table table-bordered table-striped mb-0">
+                        <tbody>
+                            {data &&
+                                data.map((party) => (
+                                    <tr
+                                        key={party.abbreviation}
+                                        style={{
+                                            backgroundColor: party.color_code,
+                                        }}
+                                    >
+                                        <td className="text-white text-left">
+                                            <div className="partylogo">
+                                                <img src={party.logo} />
+                                            </div>
+                                        </td>
+                                        <td className="text-white text-left">
+                                            {party.dz_name}
+                                        </td>
+                                        <td className="text-white  text-right">
+                                            {party.value}
+                                        </td>
+                                    </tr>
+                                ))}
+                        </tbody>
+                    </table>
+                )}
+            </div>
+        </div>
+    );
+};
+
 function ConstituencyWiseChartDzongkha() {
     const [loading, setLoading] = useState(true);
     const [data, setData] = useState(null);
@@ -265,6 +333,9 @@ function ConstituencyWiseChartDzongkha() {
                             {constituency.dz_name} (
                             {constituency.dzongkhag.dz_name})
                         </div>
+                    </div>
+                    <div className="result-container">
+                        <OverallResult />
                     </div>
                     <div
                         id="chartContainer"
@@ -478,21 +549,18 @@ function ConstituencyWiseChartDzongkha() {
                                     </BarChart>
                                 </ResponsiveContainer>
                             </div>
+
                             <div
                                 className="constituency-chart-chart-grid-2"
                                 id="chartGrid"
                                 // style={{ width: "400px" }}
                             >
-                                <ResponsiveContainer
-                                    width={300}
-                                    // height={400}
-                                    // className="recharts-responsive-container"
-                                >
+                                {/* <ResponsiveContainer width={250}>
                                     <PieChart>
                                         <Pie
                                             data={partyData}
                                             cx="50%"
-                                            cy="50%"
+                                            cy="70%"
                                             labelLine={false}
                                             labelLine={false}
                                             label={(props) =>
@@ -513,9 +581,8 @@ function ConstituencyWiseChartDzongkha() {
                                                 />
                                             ))}
                                         </Pie>
-                                        {/* <Tooltip /> */}
                                     </PieChart>
-                                </ResponsiveContainer>
+                                </ResponsiveContainer> */}
                             </div>
                         </div>
                     </div>
