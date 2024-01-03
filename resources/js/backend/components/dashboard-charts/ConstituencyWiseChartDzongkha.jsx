@@ -162,9 +162,9 @@ const OverallResult = () => {
     }, []);
 
     return (
-        <div className="card d-inline-block overall-result-container">
-            <div className="card-header bg-success text-white">
-                འདེམས་ཁྲི་ཡོངས་བསྡོམས།
+        <div className="card overall-result-container">
+            <div className="card-header bg-success text-white pb-1">
+                <div className="total_label">འདེམས་ཁྲི་ཡོངས་བསྡོམས།</div>
             </div>
             <div className="card-body p-0">
                 {loading ? (
@@ -180,16 +180,20 @@ const OverallResult = () => {
                                             backgroundColor: party.color_code,
                                         }}
                                     >
-                                        <td className="text-white text-left">
+                                        <td className="text-white text-left p-1">
                                             <div className="partylogo">
                                                 <img src={party.logo} />
                                             </div>
                                         </td>
-                                        <td className="text-white text-left">
-                                            {party.dz_name}
+                                        <td className="p-1 text-white text-left ">
+                                            <div className="party_labels">
+                                                {party.dz_name}
+                                            </div>
                                         </td>
-                                        <td className="text-white  text-right">
-                                            {party.value}
+                                        <td className="p-1 text-white  text-center">
+                                            <div className="party_labels_value">
+                                                {party.value}
+                                            </div>
                                         </td>
                                     </tr>
                                 ))}
@@ -330,16 +334,16 @@ function ConstituencyWiseChartDzongkha() {
                             སྤྱིར་བཏང་བཙག་འཐུའི་ གནས་སྐབས་ཀྱི་གྲུབ་འབྲས།
                         </h1>
                         <div className="text-center mb-0 constituency-info">
-                            {constituency.dz_name} (
-                            {constituency.dzongkhag.dz_name})
+                            <div>
+                                {constituency.dz_name}{" "}
+                                {constituency.dzongkhag.dz_name}
+                            </div>
                         </div>
                     </div>
-                    <div className="result-container">
-                        <OverallResult />
-                    </div>
+
                     <div
                         id="chartContainer"
-                        className="row justify-content-center mt-5 "
+                        className="row justify-content-center mt-1 "
                     >
                         <div className="constituency-chart-flex-container">
                             <div
@@ -373,6 +377,7 @@ function ConstituencyWiseChartDzongkha() {
                                                                         src={`/storage/${candidate.profile_image}`}
                                                                         alt={`/storage/${candidate.name}'s Image`}
                                                                     />
+
                                                                     <div className="candidate-name">
                                                                         {
                                                                             candidate.dz_name
@@ -385,10 +390,18 @@ function ConstituencyWiseChartDzongkha() {
                                                     }
                                                 )}
                                             </div>
+
+                                            <hr
+                                                color="white"
+                                                style={{
+                                                    marginTop: "0px",
+                                                    marginBottom: "5px",
+                                                }}
+                                            />
                                             <div className="votes-container">
                                                 <div className="vote-row">
                                                     <div className="vote-label">
-                                                        འགྲེམ་ཐོག་ཚོགས་རྒྱན།
+                                                        འགྲེམ་ཐོག
                                                     </div>
                                                     <div className="vote-value">
                                                         {item.pb}
@@ -396,7 +409,7 @@ function ConstituencyWiseChartDzongkha() {
                                                 </div>
                                                 <div className="vote-row">
                                                     <div className="vote-label">
-                                                        ཚོགས་རྒྱན་འཕྲུལ་ཆས།
+                                                        འཕྲུལ་ཆས།
                                                     </div>
                                                     <div className="vote-value">
                                                         {item.evm}
@@ -404,7 +417,7 @@ function ConstituencyWiseChartDzongkha() {
                                                 </div>
                                                 <div className="vote-row">
                                                     <div className="vote-label grand-total">
-                                                        ཚོགས་རྒྱན་ཡོངས་བསྡོམས།
+                                                        ཡོངས་བསྡོམས།
                                                     </div>
                                                     <div className="vote-value grand-total">
                                                         {item.total}
@@ -419,143 +432,155 @@ function ConstituencyWiseChartDzongkha() {
                                 id="chartGrid"
                                 // style={{ width: "400px", marginRight: "20px" }}
                             >
-                                <ResponsiveContainer width={400}>
-                                    <BarChart
-                                        data={partyData}
-                                        margin={{
-                                            top: 5,
-                                            right: 30,
-                                            left: 20,
-                                            bottom: 5,
-                                        }}
-                                    >
-                                        <XAxis
-                                            dataKey="abbreviation"
-                                            tick={{ fill: "#fff" }}
-                                            axisLine={{ stroke: "#fff" }}
-                                            // label={{
-                                            //     value: "Parties",
-                                            //     position: "insideBottom",
-                                            //     offset: -5,
-                                            //     fill: "#fff",
-                                            // }}
-                                        />
-                                        <YAxis
-                                            domain={[0, "dataMax + 100"]}
-                                            axisLine={{ stroke: "#fff" }}
-                                            tick={false}
-                                            // width={100} // Adjust the width as needed
-                                            // interval={0}
-                                        />
-                                        {/* <Tooltip /> */}
-                                        <Bar
-                                            activeBar={false}
-                                            dataKey="evm"
-                                            shape={<CustomBar />}
+                                <div className="bar-chart-container">
+                                    <ResponsiveContainer width={400}>
+                                        <BarChart
+                                            data={partyData}
+                                            margin={{
+                                                top: 5,
+                                                right: 10,
+                                                left: 10,
+                                                bottom: 5,
+                                            }}
                                         >
-                                            {partyData.map((entry, index) => (
-                                                <Cell
-                                                    key={`cell-${index}`}
-                                                    fill={lighten(
-                                                        0.2,
-                                                        entry.color_code
-                                                    )}
-                                                />
-                                            ))}
-                                            <LabelList
-                                                dataKey="evm"
-                                                position="top"
-                                                // angle={-90}
-                                                fill="#fff"
-                                                // content={({ value }) => `TOTAL: ${value}`}
+                                            <XAxis
+                                                dataKey="abbreviation"
+                                                tick={{ fill: "#fff" }}
+                                                axisLine={{ stroke: "#fff" }}
+                                                // label={{
+                                                //     value: "Parties",
+                                                //     position: "insideBottom",
+                                                //     offset: -5,
+                                                //     fill: "#fff",
+                                                // }}
                                             />
-                                            <LabelList
+                                            <YAxis
+                                                domain={[0, "dataMax + 100"]}
+                                                axisLine={{ stroke: "#fff" }}
+                                                tick={false}
+                                                // width={100} // Adjust the width as needed
+                                                // interval={0}
+                                            />
+                                            {/* <Tooltip /> */}
+                                            <Bar
+                                                activeBar={false}
                                                 dataKey="evm"
-                                                position="inside"
-                                                // angle={-90}
-                                                fill="#fff"
-                                                content={(props) =>
-                                                    renderCustomizedLabelForBar(
-                                                        props,
-                                                        "EVM"
+                                                shape={<CustomBar />}
+                                            >
+                                                {partyData.map(
+                                                    (entry, index) => (
+                                                        <Cell
+                                                            key={`cell-${index}`}
+                                                            fill={lighten(
+                                                                0.2,
+                                                                entry.color_code
+                                                            )}
+                                                        />
                                                     )
-                                                }
-                                            />
-                                        </Bar>
-                                        <Bar
-                                            activeBar={false}
-                                            dataKey="pb"
-                                            shape={<CustomBar />}
-                                        >
-                                            {partyData.map((entry, index) => (
-                                                <Cell
-                                                    key={`cell-${index}`}
-                                                    fill={lighten(
-                                                        0.1,
-                                                        entry.color_code
-                                                    )}
+                                                )}
+                                                <LabelList
+                                                    dataKey="evm"
+                                                    position="top"
+                                                    // angle={-90}
+                                                    fill="#fff"
+                                                    // content={({ value }) => `TOTAL: ${value}`}
                                                 />
-                                            ))}
-                                            <LabelList
+                                                <LabelList
+                                                    dataKey="evm"
+                                                    position="inside"
+                                                    // angle={-90}
+                                                    fill="#fff"
+                                                    content={(props) =>
+                                                        renderCustomizedLabelForBar(
+                                                            props,
+                                                            "EVM"
+                                                        )
+                                                    }
+                                                />
+                                            </Bar>
+                                            <Bar
+                                                activeBar={false}
                                                 dataKey="pb"
-                                                position="top"
-                                                // angle={-90}
-                                                fill="#fff"
-                                                // content={({ value }) => `TOTAL: ${value}`}
-                                            />
-                                            <LabelList
-                                                // dataKey="pb"
-                                                position="middle"
-                                                fill="#fff"
-                                                content="PB"
-                                                content={(props) =>
-                                                    renderCustomizedLabelForBar(
-                                                        props,
-                                                        "PB"
+                                                shape={<CustomBar />}
+                                            >
+                                                {partyData.map(
+                                                    (entry, index) => (
+                                                        <Cell
+                                                            key={`cell-${index}`}
+                                                            fill={lighten(
+                                                                0.1,
+                                                                entry.color_code
+                                                            )}
+                                                        />
                                                     )
-                                                }
-                                            />
-                                        </Bar>
-                                        <Bar
-                                            activeBar={false}
-                                            dataKey="total"
-                                            shape={<CustomBar />}
-                                        >
-                                            {partyData.map((entry, index) => (
-                                                <Cell
-                                                    key={`cell-${index}`}
-                                                    fill={entry.color_code}
+                                                )}
+                                                <LabelList
+                                                    dataKey="pb"
+                                                    position="top"
+                                                    // angle={-90}
+                                                    fill="#fff"
+                                                    // content={({ value }) => `TOTAL: ${value}`}
                                                 />
-                                            ))}
-                                            <LabelList
+                                                <LabelList
+                                                    // dataKey="pb"
+                                                    position="middle"
+                                                    fill="#fff"
+                                                    content="PB"
+                                                    content={(props) =>
+                                                        renderCustomizedLabelForBar(
+                                                            props,
+                                                            "PB"
+                                                        )
+                                                    }
+                                                />
+                                            </Bar>
+                                            <Bar
+                                                activeBar={false}
                                                 dataKey="total"
-                                                position="top"
-                                                // angle={-90}
-                                                fill="#fff"
-                                                // content={({ value }) => `TOTAL: ${value}`}
-                                            />
-                                            <LabelList
-                                                // dataKey="total"
-                                                position="inside"
-                                                fill="#fff"
-                                                content={(props) =>
-                                                    renderCustomizedLabelForBar(
-                                                        props,
-                                                        "TOTAL"
+                                                shape={<CustomBar />}
+                                            >
+                                                {partyData.map(
+                                                    (entry, index) => (
+                                                        <Cell
+                                                            key={`cell-${index}`}
+                                                            fill={
+                                                                entry.color_code
+                                                            }
+                                                        />
                                                     )
-                                                }
-                                            />
-                                        </Bar>
-                                    </BarChart>
-                                </ResponsiveContainer>
+                                                )}
+                                                <LabelList
+                                                    dataKey="total"
+                                                    position="top"
+                                                    // angle={-90}
+                                                    fill="#fff"
+                                                    // content={({ value }) => `TOTAL: ${value}`}
+                                                />
+                                                <LabelList
+                                                    // dataKey="total"
+                                                    position="inside"
+                                                    fill="#fff"
+                                                    content={(props) =>
+                                                        renderCustomizedLabelForBar(
+                                                            props,
+                                                            "TOTAL"
+                                                        )
+                                                    }
+                                                />
+                                            </Bar>
+                                        </BarChart>
+                                    </ResponsiveContainer>
+                                </div>
+                                <div className="result-container">
+                                    <OverallResult />
+                                </div>
                             </div>
-
-                            <div
+                            {/* <div
                                 className="constituency-chart-chart-grid-2"
                                 id="chartGrid"
                                 // style={{ width: "400px" }}
-                            >
-                                {/* <ResponsiveContainer width={250}>
+                            > */}
+                            {/* <ResponsiveContainer width={250}>
                                     <PieChart>
                                         <Pie
                                             data={partyData}
@@ -583,7 +608,7 @@ function ConstituencyWiseChartDzongkha() {
                                         </Pie>
                                     </PieChart>
                                 </ResponsiveContainer> */}
-                            </div>
+                            {/* </div> */}
                         </div>
                     </div>
                 </div>
