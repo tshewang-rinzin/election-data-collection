@@ -76,32 +76,24 @@
                 </ul>
 
             </li>
-        <li class="c-sidebar-nav-dropdown {{ activeClass(Route::is('admin.publish-result.*'), 'c-open c-show') }}">
+
+            <li class="c-sidebar-nav-item">
                 <x-utils.link
-                    href="#"
-                    icon="c-sidebar-nav-icon cil-user"
-                    class="c-sidebar-nav-dropdown-toggle"
-                    :text="__('Constituency Results')" />
-
-                <ul class="c-sidebar-nav-dropdown-items">
-                    <li class="c-sidebar-nav-item">
-                            <x-utils.link
-                                :href="route('admin.election-result.list-constituencies')"
-                                class="c-sidebar-nav-link"
-                                :text="__('Publish')"
-                                :active="activeClass(Route::is('admin.election-result.list-constituencies'), 'c-active')" />
-                    </li>
-                </ul>
-
+                    class="c-sidebar-nav-link"
+                    :href="route('admin.election-result.list-constituencies')"
+                    :active="activeClass(Route::is('admin.election-result.*'), 'c-active')"
+                    icon="c-sidebar-nav-icon cil-chart"
+                    :text="__('Publish Result')" />
             </li>
-        <li class="c-sidebar-nav-item">
+
+        {{-- <li class="c-sidebar-nav-item">
             <x-utils.link
                 class="c-sidebar-nav-link"
                 :href="route('admin.dashboard')"
                 :active="activeClass(Route::is('admin.dashboard'), 'c-active')"
-                icon="c-sidebar-nav-icon cil-chart"
+                icon="c-sidebar-nav-open cil-chart"
                 :text="__('Result')" />
-        </li>
+        </li> --}}
         @if (
             $logged_in_user->hasAllAccess() ||
             (

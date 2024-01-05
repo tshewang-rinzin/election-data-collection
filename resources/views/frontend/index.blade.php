@@ -65,6 +65,26 @@
             .m-b-md {
                 margin-bottom: 30px;
             }
+
+            .go-to-dashboard-link {
+            /* display: inline-block;
+            padding: 10px 20px;
+            background-color: #3490dc;
+            color: #ffffff;
+            border-radius: 5px;
+            font-size: 16px;
+            text-decoration: none;
+            transition: background-color 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 10px; */
+            margin: auto; /* Centers horizontally */
+        }
+
+        .go-to-dashboard-link:hover {
+            background-color: #2779bd;
+        }
         </style>
         @stack('after-styles')
     </head>
@@ -93,8 +113,14 @@
 
             <div class="content">
                 {{-- @include('includes.partials.messages') --}}
-                <div class="row">
-
+                <div class="row mt-2">
+                    @auth
+                        @if ($logged_in_user->isAdmin())
+                            <a href="{{ route('admin.votes.index') }}" class="go-to-dashboard-link btn-lg btn-danger">@lang('Upload Votes')</a>
+                        @endif
+                    @else
+                        <a href="{{ route('frontend.auth.login') }}" class="go-to-dashboard-link">@lang('Login')</a>
+                    @endauth
                 </div>
                 <div id="root"></div>
             </div><!--content-->
