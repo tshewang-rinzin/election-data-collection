@@ -50,6 +50,7 @@
                 </ul>
 
             </li>
+
         <li class="c-sidebar-nav-dropdown {{ activeClass(Route::is('admin.candidates.*'), 'c-open c-show') }}">
                 <x-utils.link
                     href="#"
@@ -71,6 +72,24 @@
                             class="c-sidebar-nav-link"
                             :text="__('Add')"
                             :active="activeClass(Route::is('admin.candidates.create'), 'c-active')" />
+                    </li>
+                </ul>
+
+            </li>
+        <li class="c-sidebar-nav-dropdown {{ activeClass(Route::is('admin.publish-result.*'), 'c-open c-show') }}">
+                <x-utils.link
+                    href="#"
+                    icon="c-sidebar-nav-icon cil-user"
+                    class="c-sidebar-nav-dropdown-toggle"
+                    :text="__('Constituency Results')" />
+
+                <ul class="c-sidebar-nav-dropdown-items">
+                    <li class="c-sidebar-nav-item">
+                            <x-utils.link
+                                :href="route('admin.election-result.list-constituencies')"
+                                class="c-sidebar-nav-link"
+                                :text="__('Publish')"
+                                :active="activeClass(Route::is('admin.election-result.list-constituencies'), 'c-active')" />
                     </li>
                 </ul>
 

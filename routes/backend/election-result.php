@@ -30,7 +30,18 @@ Route::group([
                 ->push(__('Create Role'), route('admin.auth.role.create'));
         });
 
+
     Route::post('/', [ElectionResultController::class, 'store'])->name('store');
+
+    Route::get('list-constituencies', [ElectionResultController::class, 'listConstituencies'])
+        ->name('list-constituencies')
+        ->breadcrumbs(function (Trail $trail) {
+            $trail->parent('admin.auth.role.index')
+                ->push(__('Create Role'), route('admin.auth.role.create'));
+        });
+
+    Route::post('publish/{constituencyId}', [ElectionResultController::class, 'publishConstituencyResult'])->name('publish');
+
 
     Route::group(['prefix' => '{role}'], function () {
         Route::get('edit', [ElectionResultController::class, 'edit'])

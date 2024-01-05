@@ -88,4 +88,30 @@ class ElectionResultController
 
         return redirect()->route('admin.election-result.show', $election_result)->withFlashSuccess(__('The user was successfully created.'));
     }
+
+
+    public function listConstituencies(){
+
+        // Get all constituencies, both published and unpublished
+        $allConstituencies = Constituency::all();
+
+        return view('backend.election-result.list-constituencies', compact('allConstituencies'));
+
+    }
+
+    public function publishConstituencyResult($constituencyId){
+
+        $constituency = Constituency::findOrFail($constituencyId);
+
+        // Check if there are any votes for the constituency
+        if ($constituency->votes->isEmpty()) {
+            return redirect()->route('admin.election-result.list-constituencies')
+                ->with('error', 'Cannot publish result for ' . $constituency->name . '. There are no votes.');
+        }
+
+        $constituency->update(['publish_result' => 1]);
+
+        return redirect()->route('admin.election-result.list-constituencies')
+            ->with('success', 'Result for ' . $constituency->name . ' published successfully.');
+    }
 }

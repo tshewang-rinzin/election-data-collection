@@ -7,13 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 
 use App\Models\Dzongkhag;
 use App\Models\Candidate;
-
+use App\Models\Votes;
 
 class Constituency extends Model
 {
     protected $fillable = [
         'name',
-        'dzongkhag_id'
+        'dzongkhag_id',
+        'publish_result'
     ];
 
     public function dzongkhag()
@@ -24,5 +25,10 @@ class Constituency extends Model
     public function candidates()
     {
         return $this->hasMany(Candidate::class);
+    }
+
+    public function votes()
+    {
+        return $this->hasMany(Vote::class);
     }
 }

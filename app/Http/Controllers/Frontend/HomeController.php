@@ -12,6 +12,13 @@ class HomeController
      */
     public function index()
     {
+
+        // // Check if the user is logged in
+        // if (auth()->check()) {
+        //     // If logged in, redirect to the admin dashboard
+        //     return redirect()->route('admin.dashboard');
+        // }
+
         return view('frontend.index');
     }
 

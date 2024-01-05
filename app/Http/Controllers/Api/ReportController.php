@@ -191,7 +191,12 @@ class ReportController
     {
         $constituency = Constituency::with(['dzongkhag', 'candidates.party'])->find($request->constituency_id);
         // Fetch data from the votes table
-        $data = Vote::with(['constituency', 'party'])->where(['constituency_id'=>$request->constituency_id])->orderBy('party_id')->get();
+        $data = Vote::with(['constituency', 'party'])
+                ->where(['constituency_id'=>$request->constituency_id])
+                ->whereHas('constituency', function ($query) {
+                    $query->where('publish_result', true);
+                })
+                ->orderBy('party_id')->get();
 
         // Process data to calculate total votes, EVM votes, and postal ballot votes for each party
         $partyVotes = [];
@@ -232,7 +237,11 @@ class ReportController
     public function countConstituencyWins(Request $request)
     {
         // Fetch data from the votes table
-        $data = Vote::with(['constituency', 'party'])->get();
+        $data = Vote::with(['constituency', 'party'])
+                ->whereHas('constituency', function ($query) {
+                    $query->where('publish_result', true);
+                })
+                ->get();
 
         // Process data to calculate wins for each party in each constituency
         $partyWins = [];
@@ -260,8 +269,29 @@ class ReportController
             }
         }
 
+
         // Count the number of constituencies won by each party
+
+        // Initialize partyWinsCount with all parties and set initial win count to zero
+        $allParties = Party::all(); // Assuming Party is the model for the parties table
         $partyWinsCount = [];
+
+        foreach ($allParties as $party) {
+            $partyName = $party->name;
+            $partyDzName = $party->dz_name;
+            $partyAbbreviation = $party->abbreviation; // Add this line
+            $partyColorCode = $party->color_code; // Add this line
+            $partyLogo = $party->logo;
+
+            $partyWinsCount[] = [
+                'name' => $partyName,
+                'dz_name' => $partyDzName,
+                'abbreviation' => $partyAbbreviation,
+                'color_code' => $partyColorCode,
+                'value' => 0,
+                'logo' => $partyLogo
+            ];
+        }
 
         foreach ($partyWins as $constituencyWins) {
             $maxVotes = max(array_column($constituencyWins, 'votes'));
