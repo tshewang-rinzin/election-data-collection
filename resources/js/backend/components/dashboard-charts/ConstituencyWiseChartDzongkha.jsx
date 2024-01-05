@@ -328,7 +328,7 @@ function ConstituencyWiseChartDzongkha() {
                 <div className="constituency-chart-main-container">
                     <div className="constituency-wise-header">
                         <h2 className="text-center">
-                            རྒྱལ་ཡོངས་ཚོགས་འསྡུའི་བཙག་འཐུ། ༢༠༢༣-༢༠༢༤
+                            རྒྱལ་ཡོངས་ཚོགས་འདུའི་བཙག་འཐུ། ༢༠༢༣-༢༠༢༤
                         </h2>
                         <h1 className="text-center">
                             སྤྱིར་བཏང་བཙག་འཐུའི་ གནས་སྐབས་ཀྱི་གྲུབ་འབྲས།
