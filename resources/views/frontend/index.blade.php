@@ -113,16 +113,18 @@
 
             <div class="content">
                 {{-- @include('includes.partials.messages') --}}
-                <div class="row mt-2">
+
+                <div id="root"></div>
+
+                <div class="row mt-3">
                     @auth
                         @if ($logged_in_user->isAdmin())
                             <a href="{{ route('admin.votes.index') }}" class="go-to-dashboard-link btn-lg btn-danger">@lang('Upload Votes')</a>
                         @endif
                     @else
-                        <a href="{{ route('frontend.auth.login') }}" class="go-to-dashboard-link">@lang('Login')</a>
+                        <a href="{{ route('frontend.auth.login') }}" class="btn-lg btn-danger">@lang('Login')</a>
                     @endauth
                 </div>
-                <div id="root"></div>
             </div><!--content-->
         </div><!--app-->
 
