@@ -281,7 +281,7 @@ function ConstituencyWiseChartDzongkha() {
                 //     y + height + radius + 10
                 // })`} // Rotate the text by -90 degrees
             >
-                <tspan x={x + width / 2} dy="-2.5em" fill="#fff">
+                <tspan x={x + width / 2} dy="-2em" fill="#fff">
                     {legend}
                 </tspan>
             </text>
@@ -437,7 +437,7 @@ function ConstituencyWiseChartDzongkha() {
                                         <BarChart
                                             data={partyData}
                                             margin={{
-                                                top: 5,
+                                                top: 20,
                                                 right: 10,
                                                 left: 10,
                                                 bottom: 5,
@@ -455,7 +455,7 @@ function ConstituencyWiseChartDzongkha() {
                                                 // }}
                                             />
                                             <YAxis
-                                                domain={[0, "dataMax + 100"]}
+                                                domain={[0, "dataMax + 200"]}
                                                 axisLine={{ stroke: "#fff" }}
                                                 tick={false}
                                                 // width={100} // Adjust the width as needed

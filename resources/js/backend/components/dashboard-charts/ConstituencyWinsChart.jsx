@@ -15,11 +15,39 @@ import {
     YAxis,
     CartesianGrid,
     ResponsiveContainer,
+    LabelList,
 } from "recharts";
+
+import { lighten } from "polished";
 // import { Doughnut } from "react-chartjs-2";
 
 // ChartJS.register(ArcElement, Tooltip, Legend);
 import api from "../../../services/api"; // Adjust the path based on your file structure
+
+const CustomBar = (props) => {
+    const { fill, x, y, width, height } = props;
+
+    // Define the depth of the 3D effect
+    const depth = 10;
+
+    // Create a shadow effect for the 3D effect
+    const shadow = (
+        <rect
+            x={x + width}
+            y={y}
+            width={depth}
+            height={height}
+            fill={lighten(0.1, fill)}
+        />
+    );
+
+    return (
+        <>
+            <rect {...props} />
+            {shadow}
+        </>
+    );
+};
 
 function ConstituencyWinsChart() {
     const [loading, setLoading] = useState(true);
@@ -63,64 +91,49 @@ function ConstituencyWinsChart() {
     }));
 
     const RADIAN = Math.PI / 180;
-    const renderCustomizedLabel = ({
-        cx,
-        cy,
-        midAngle,
-        innerRadius,
-        outerRadius,
-        percent,
-        index,
-        name,
-    }) => {
-        const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
-        const x = cx + radius * Math.cos(-midAngle * RADIAN);
-        const y = cy + radius * Math.sin(-midAngle * RADIAN);
+    const renderCustomizedLabelForBar = (props, legend) => {
+        const { x, y, width, height, value, position } = props;
+        const radius = 10;
 
         return (
             <text
-                x={x}
-                y={y}
-                fill="white"
-                textAnchor={x > cx ? "start" : "end"}
-                dominantBaseline="central"
+                x={x + width / 2}
+                y={y + height + radius + 10} // Adjust the y-coordinate to place it at the bottom
+                fill="#fff"
+                textAnchor="middle"
+                dominantBaseline="middle"
+                style={{ fontSize: "20px", fontFamily: "Oswald-Bold" }}
+                // transform={`rotate(-90 ${x + width / 2} ${
+                //     y + height + radius + 10
+                // })`} // Rotate the text by -90 degrees
             >
-                {`${name}(${(percent * 100).toFixed(0)}%)`}
+                <tspan
+                    x={x + width / 2}
+                    dy="-2.5em"
+                    fill="#fff"
+                    style={{
+                        fontFamily: "Wangdi29",
+                    }}
+                >
+                    {legend}
+                </tspan>
             </text>
         );
     };
 
     return (
         <div className="row justify-content-center">
+            <div
+                className="col-md-12 text-center no-of-seats"
+                style={{
+                    fontFamily: "Oswald-Bold",
+                    fontSize: "20px",
+                    marginLeft: "80px",
+                }}
+            >
+                NUMBER OF SEATS
+            </div>
             <div className="col-md-12 d-flex justify-content-center">
-                <ResponsiveContainer width="50%" height={400}>
-                    <PieChart>
-                        <Pie
-                            data={dataValues}
-                            cx="50%"
-                            cy="50%"
-                            labelLine={false}
-                            label={(props) =>
-                                renderCustomizedLabel({
-                                    ...props,
-                                    name: data.partyWinsCount[props.index]
-                                        .abbreviation,
-                                })
-                            }
-                            fill="#8884d8"
-                            dataKey="value"
-                        >
-                            {dataValues.map((entry, index) => (
-                                <Cell
-                                    key={`cell-${index}`}
-                                    fill={dataValues[index].color_code}
-                                />
-                            ))}
-                        </Pie>
-                        <Tooltip />
-                        {/* <Legend /> */}
-                    </PieChart>
-                </ResponsiveContainer>
                 <ResponsiveContainer width={400} height={350}>
                     <BarChart data={processedData}>
                         {/* <CartesianGrid strokeDasharray="3 3" /> */}
@@ -128,30 +141,39 @@ function ConstituencyWinsChart() {
                             dataKey="abbreviation"
                             tick={{ fill: "#fff" }}
                             axisLine={{ stroke: "#fff" }}
-                            label={{
-                                value: "Parties",
-                                position: "insideBottom",
-                                offset: -5,
-                                fill: "#fff",
-                            }}
+                            // label={{
+                            //     value: "Parties",
+                            //     position: "insideBottom",
+                            //     offset: -5,
+                            //     fill: "#fff",
+                            // }}
                         />
                         <YAxis
-                            label={{
-                                value: "Number of Constituencies",
-                                angle: -90,
-                                fill: "#fff",
-                                // position: "insideLeft",
-                            }}
+                            // label={{
+                            //     value: "Number of Constituencies",
+                            //     angle: -90,
+                            //     fill: "#fff",
+                            //     // position: "insideLeft",
+                            // }}
                             axisLine={{ stroke: "#fff" }}
-                            tick={{ fill: "#fff" }}
+                            tick={false}
                         />
-                        <Tooltip />
+                        {/* <Tooltip /> */}
                         <Bar
                             dataKey="value"
+                            shape={<CustomBar />}
                             fill={(entry) => {
                                 return entry.color_code;
                             }}
-                        />
+                        >
+                            <LabelList
+                                dataKey="value"
+                                position="top"
+                                // angle={-90}
+                                fill="#fff"
+                                // content={({ value }) => `TOTAL: ${value}`}
+                            />
+                        </Bar>
                     </BarChart>
                 </ResponsiveContainer>
             </div>

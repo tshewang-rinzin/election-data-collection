@@ -1,7 +1,6 @@
 import React from "react";
 import ByConstituencies from "./charts/ByConstituencies";
 import ByConstituenciesWithVoteType from "./charts/ByConstituenciesWithVoteType";
-import ConstituencyWinsChart from "./charts/ConstituencyWinsChart";
 
 function ElectionResults() {
     return (

@@ -16,6 +16,7 @@ import Dashboard from "../backend/components/Dashboard";
 
 import ConstituencyWise from "../backend/components/dashboard-charts/ConstituencyWiseChart";
 import ConstituencyWiseDzongkha from "../backend/components/dashboard-charts/ConstituencyWiseChartDzongkha";
+import OverallResultDzongkha from "../backend/components/dashboard-charts/OverallResultDzongkha";
 
 require("../bootstrap");
 require("../plugins");
@@ -37,6 +38,10 @@ const router = createBrowserRouter([
     {
         path: "/",
         element: <Dashboard />,
+    },
+    {
+        path: "/overall",
+        element: <OverallResultDzongkha />,
     },
     {
         path: "/constituency-wise",

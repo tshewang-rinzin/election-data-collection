@@ -76,7 +76,17 @@
                 </ul>
 
             </li>
-
+@if (
+            $logged_in_user->hasAllAccess() ||
+            (
+                $logged_in_user->can('admin.access.user.list') ||
+                $logged_in_user->can('admin.access.user.deactivate') ||
+                $logged_in_user->can('admin.access.user.reactivate') ||
+                $logged_in_user->can('admin.access.user.clear-session') ||
+                $logged_in_user->can('admin.access.user.impersonate') ||
+                $logged_in_user->can('admin.access.user.change-password')
+            )
+        )
             <li class="c-sidebar-nav-item">
                 <x-utils.link
                     class="c-sidebar-nav-link"
@@ -85,6 +95,7 @@
                     icon="c-sidebar-nav-icon cil-chart"
                     :text="__('Publish Result')" />
             </li>
+        @endif
 
         {{-- <li class="c-sidebar-nav-item">
             <x-utils.link

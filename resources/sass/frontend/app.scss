@@ -220,7 +220,7 @@
         max-width: 100%;
         width: auto; // Make the image take 100% of the width of the container
         height: 180px; // Maintain the aspect ratio
-        border-radius: 50%; // Make the image circular
+        // border-radius: 50%; // Make the image circular
         // Add other styling properties as needed
     }
 }
@@ -440,7 +440,7 @@
                 max-width: 100%;
                 width: auto; // Make the image take 100% of the width of the container
                 height: 175px; // Maintain the aspect ratio
-                border-radius: 50%; // Make the image circular
+                // border-radius: 50%; // Make the image circular
                 // Add other styling properties as needed
             }
         }
@@ -490,5 +490,321 @@
 
         .overall-result-container{
             background-color: white;
+        }
+
+        svg.recharts-surface tspan {
+            font-size: 15px !important;
+            font-family: 'Oswald-Light';
+        }
+}
+
+.overall{
+    .dz {
+            .constituency-wise-header {
+                color: white;
+
+                h2 {
+                    text-align: center;
+                    font-family: "Wangdi29-Regular";
+                    color: #ffde00;
+                    font-size: 50px;
+                    max-height: 50px;
+                    margin-top: -45px;
+                }
+
+                h1 {
+                    text-align: center;
+                    font-family: "Wangdi29-Regular";
+                    font-size: 60px;
+                    max-height: 50px;
+                    margin-top: -20px;
+                }
+
+                .constituency-info {
+                    text-align: center;
+                    background-color: #ffde00;
+                    display: inline-block;
+                    border-radius: 50px;
+                    padding-left: 50px;
+                    padding-right: 50px;
+                    padding-bottom: 5px;
+                    max-height: 50px;
+
+                    div {
+                        font-family: "Wangdi29-Regular";
+                        color: #000;
+                        font-size: 50px;
+                        max-height: 50px;
+                        margin-top: -10px;
+                    }
+
+                    margin-bottom: 10;
+                }
+            }
+
+            .constituency-chart-container {
+                width: 1280px;
+                height: 720px;
+                position: relative;
+                border: 1px solid white;
+                margin-top: 10px;
+            }
+
+            .constituency-chart-corner-img {
+                position: absolute;
+                width: 60px;
+                left: 10px;
+                top: 10px;
+            }
+
+            .constituency-chart-corner-img-right {
+                position: absolute;
+                width: 60px;
+                right: 10px;
+                bottom: 10px;
+                transform: rotate(180deg);
+            }
+
+
+
+            .constituency-chart-main-container {
+                color: white;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                width: 100%;
+                margin: 0 auto; // Center horizontally
+                max-width: 1280px; // Set maximum width
+                max-height: 720px; // Set maximum height
+
+            }
+
+            .constituency-chart-content {
+                color: white;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                width: 100%;
+                box-sizing: border-box;
+                padding: 10px;
+                font-family: 'Wangdi29-Regular'
+            }
+
+
+
+            .constituency-chart-flex-container {
+                display: flex;
+                justify-content: space-between;
+            }
+
+            .constituency-chart-frame-container {
+                display: flex;
+                width: 700px;
+                margin-right: 0px;
+                margin-top: 40px;
+                // background: red
+            }
+
+            .constituency-chart-frame {
+                border-radius: 30px; // Adjust the border radius as needed
+                min-height: 400px; // Adjust the minimum height as needed
+                width: 800px; // Adjust the minimum width as needed
+                // overflow: "hidden", // To hide content that exceeds the border radius
+                max-height: 500px;
+                background: rgba(255, 255, 255, 0.2);
+                margin-left: 10px;
+                padding: 15px 20px;
+            }
+
+            .constituency-chart-chart-grid-1 {
+                // width: 200px;
+
+                margin-top: 100px;
+                .bar-chart-container {
+                    width: 400px;
+                    height: 300px;
+                }
+            }
+
+            .constituency-chart-chart-grid-2 {
+                // margin-right: 50px;
+                display: block;
+                // flex-direction: column;
+                align-items: center;
+                // justify-content: flex-end; // Align to the bottom
+                width: 300px;
+                height: 300px;
+                // height: 350px;
+                padding-left: 0px;
+            }
+
+            .party_name {
+                // Styles for the party name
+                margin-top: -5px;
+                margin-bottom: 20px;
+                font-size: 60px;
+                max-height: 60px;
+                font-family: "Wangdi29-Regular"; // Replace "YourFontFamily" with the actual font you want to use
+                // text-transform: uppercase; // Convert text to uppercase
+                // Add other styling properties as needed
+            }
+
+            .party_logo {
+                margin-top:30px;
+                overflow: hidden;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                img {
+                    width: 250px;
+                    height: 250px;
+                    border-radius: 50%;
+                    object-fit: cover;
+                }
+            }
+
+            .candidate-name {
+                font-family: "Wangdi29-Regular";
+                font-size: 50px;
+                height: 50px;
+                margin-top: -10px;
+                // margin-bottom: 10px;
+            }
+
+            .votes-container {
+                margin-top: 2px;
+                text-align: center;
+
+                .vote-row {
+                    display: flex;
+                    justify-content: center;
+                    color: 'white';
+
+                    .vote-label {
+                        text-align: left;
+                        font-family: "Wangdi29-Regular";
+                        font-size: 50px;
+                        max-height: 50px;
+                        margin-top: -10px;
+
+                        &.grand-total {
+                            font-family: "Wangdi29-Regular";
+                            // color:#ffde00;
+                        }
+                    }
+
+                    .vote-value {
+                        text-align: right;
+                        font-family: "Wangdi29-Regular";
+                        font-size: 50px;
+                        max-height: 50px;
+                        margin-top: -20px;
+
+                        // Style for the grand total row
+                        &.grand-total {
+                            font-family: "Wangdi29-Regular";
+                            // color: #ffde00;
+                        }
+                    }
+                }
+            }
+
+            .candidate_img {
+
+                // Styles for the candidate image container
+                img {
+                    max-width: 100%;
+                    width: auto; // Make the image take 100% of the width of the container
+                    height: 175px; // Maintain the aspect ratio
+                    border-radius: 50%; // Make the image circular
+                    // Add other styling properties as needed
+                }
+            }
+
+            .result-container {
+                // position:absolute;
+                // right: 50px;
+                // top: 350px;
+                padding-left: 50px;
+
+
+                .party_labels {
+                    font-size: 45px;
+                    font-family: 'Wangdi29-Regular';
+                    max-height: 45px;
+                    // margin-top: -15px;
+                }
+
+                .party_labels_value {
+                    font-size: 45px;
+                    font-family: 'Wangdi29-Regular';
+                    max-height: 45px;
+                    margin-top: -10px;
+                    min-width: 70px;
+                }
+
+                .total_label {
+                    font-family: 'Wangdi29-Regular';
+                    max-height: 55px;
+                    font-size: 55px;
+                    margin-top: -15px;
+                }
+
+                .partylogo {
+                    overflow: hidden;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+
+                    img {
+                        width: 200px;
+                        height: 200px;
+                        border-radius: 50%;
+                        object-fit: cover;
+                    }
+                }
+            }
+
+            .overall-result-container {
+                background-color: white;
+            }
+
+            .constituency-value{
+                // font-family: 'Wangdi29-Regular';
+
+                // margin-top: -5px;
+                width: 100%;
+                height: 60px;
+                border-radius: 10px;
+                margin-left: auto;
+                margin-right: auto;
+                position:relative;
+                margin-top: 10px;
+
+                .constituency-value-text {
+                    font-family: 'Wangdi29-Regular';
+                    margin-top:-15px;
+                    max-height: 60px;
+                    font-size: 60px;
+                    position:absolute;
+                    left: 0;
+                    right: 0;
+                    top:0;
+                }
+            }
+            .constituency-label{
+                font-family: 'Wangdi29-Regular';
+                    max-height: 55px;
+                    font-size: 55px;
+                    margin-top: 5px;
+            }
+        }
+
+        svg.recharts-surface tspan {
+            font-size: 20px !important;
+            font-family: 'Oswald-Regular';
         }
 }
