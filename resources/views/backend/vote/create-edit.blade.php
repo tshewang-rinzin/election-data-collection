@@ -52,6 +52,7 @@
                             </div>
 
                     </div>
+                    <div style="display:none" id="vote-form">
                     @foreach($parties as $party)
                         <div class="card">
                             <div class="row g-0">
@@ -101,12 +102,16 @@
                             }
                         </script>
                     @endforeach
+                    </div>
                 </div>
             </x-slot>
 
-            <x-slot name="footer">
-                <button class="btn btn-sm btn-primary" type="submit">@lang('Submit')</button>
-            </x-slot>
+                <x-slot name="footer">
+                    <div style="display:none" id="submit-button">
+                    <button class="btn btn-sm btn-primary" type="submit">@lang('Submit')</button>
+                    </div>
+                </x-slot>
+
         </x-backend.card>
     </x-forms.post>
 @endsection
@@ -119,6 +124,9 @@
 <script>
 
         function populateConstituencies(dzongkhagId) {
+            document.getElementById('vote-form').style.display = "none";
+            document.getElementById('submit-button').style.display ="none";
+
             const constituencies = @json($constituencies);
 
             const filteredConstituencies = constituencies.filter(con => con.dzongkhag_id == dzongkhagId);
@@ -139,6 +147,15 @@
 
         function updateSelectedConstituency() {
             const selectedConstituency = document.getElementById('constituency');
+            if(selectedConstituency.options[selectedConstituency.selectedIndex].value){
+                document.getElementById('vote-form').style.display = "block";
+                document.getElementById('submit-button').style.display= "block";
+            }
+            else{
+                document.getElementById('vote-form').style.display = "none";
+                document.getElementById('submit-button').style.display ="none";
+            }
+
             const selectedLabel = selectedConstituency.options[selectedConstituency.selectedIndex].text;
 
             const selectedConstituencies = document.querySelectorAll('[id^="selected-constituency"]');
