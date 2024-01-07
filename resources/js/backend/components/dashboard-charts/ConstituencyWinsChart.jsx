@@ -135,7 +135,15 @@ function ConstituencyWinsChart() {
             </div>
             <div className="col-md-12 d-flex justify-content-center">
                 <ResponsiveContainer width={400} height={350}>
-                    <BarChart data={processedData}>
+                    <BarChart
+                        data={processedData}
+                        margin={{
+                            top: 30,
+                            right: 10,
+                            left: 10,
+                            bottom: 5,
+                        }}
+                    >
                         {/* <CartesianGrid strokeDasharray="3 3" /> */}
                         <XAxis
                             dataKey="abbreviation"
@@ -149,6 +157,7 @@ function ConstituencyWinsChart() {
                             // }}
                         />
                         <YAxis
+                            domain={[0, "dataMax + 1"]}
                             // label={{
                             //     value: "Number of Constituencies",
                             //     angle: -90,

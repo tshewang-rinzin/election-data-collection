@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers\Backend;
 
+
+use Spatie\Activitylog\Models\Activity;
+
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Dzongkhag;
@@ -21,8 +24,16 @@ class VoteController extends Controller
 
     public function create()
     {
-         // Retrieve dzongkhags and constituencies from the database
-        $dzongkhags = Dzongkhag::all();
+
+        if(auth()->user()->hasAllAccess()){
+            $dzongkhags = Dzongkhag::all();
+        }
+        else{
+            $dzongkhagId = auth()->user()->dzongkhag_id;
+            // Retrieve dzongkhags and constituencies from the database
+            $dzongkhags = Dzongkhag::where(['id' =>$dzongkhagId])->get();
+        }
+
         $constituencies = Constituency::all();
         $parties = Party::all();
 
@@ -61,11 +72,21 @@ class VoteController extends Controller
             ];
 
             // Create or update the record in the 'votes' table
-            Vote::updateOrCreate(
+            $vote = Vote::updateOrCreate(
                 ['constituency_id' => $constituencyId, 'party_id' => $partyId],
                 $partyData
             );
-        }
+
+           // Log activity for the created or updated vote record
+            $description = "Vote record for Party {$partyId} ";
+            $description .= $vote->wasRecentlyCreated ? 'created' : 'updated';
+            $description .= " in Constituency {$constituencyId}";
+
+            activity()
+                ->performedOn($vote)
+                ->withProperties(['action' => $vote->wasRecentlyCreated ? 'create' : 'update', 'attributes' => $vote->getAttributes()])
+                ->log($description);
+            }
 
         return redirect()->route('admin.votes.index');
     }

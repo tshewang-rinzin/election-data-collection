@@ -5,7 +5,7 @@ import { createRoot } from "react-dom/client";
 import "../i18n";
 
 import ElectionResults from "./components/ElectionResults";
-import Dashboard from "./components/Dashboard";
+import OverallResultDzongkha from "./components/dashboard-charts/OverallResultDzongkha";
 
 window.$ = window.jQuery = require("jquery");
 window.Swal = require("sweetalert2");
@@ -19,7 +19,7 @@ require("../plugins");
 const adminDashboard = document.getElementById("admin");
 
 if (adminDashboard) {
-    createRoot(adminDashboard).render(<Dashboard />);
+    createRoot(adminDashboard).render(<OverallResultDzongkha />);
 }
 
 const root = document.getElementById("root");

@@ -4,7 +4,9 @@
 
 namespace App\Models;
 
+
 use Illuminate\Database\Eloquent\Model;
+use App\Domains\Auth\Models\User;
 
 class Dzongkhag extends Model
 {
@@ -15,5 +17,10 @@ class Dzongkhag extends Model
     public function constituencies()
     {
         return $this->hasMany(Constituency::class);
+    }
+
+    public function users()
+    {
+        return $this->hasMany(User::class);
     }
 }

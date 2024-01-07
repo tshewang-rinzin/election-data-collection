@@ -93,7 +93,9 @@ class ElectionResultController
     public function listConstituencies(){
 
         // Get all constituencies, both published and unpublished
-        $allConstituencies = Constituency::all();
+        $allConstituencies = Constituency::orderBy('publish_result', 'desc')
+                                ->orderBy('updated_at', 'desc')
+                                ->get();
 
         return view('backend.election-result.list-constituencies', compact('allConstituencies'));
 
