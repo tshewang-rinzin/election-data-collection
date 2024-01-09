@@ -295,6 +295,17 @@ class ReportController
 
         foreach ($partyWins as $constituencyWins) {
             $maxVotes = max(array_column($constituencyWins, 'votes'));
+
+            // Filter parties that have the maximum votes
+            $partiesWithMaxVotes = array_filter($constituencyWins, function ($partyData) use ($maxVotes) {
+                return $partyData['votes'] === $maxVotes;
+            });
+
+            // If there's a tie, skip counting winners for this constituency
+            if (count($partiesWithMaxVotes) > 1) {
+                continue;
+            }
+
             foreach ($constituencyWins as $party => $partyData) {
                 if ($partyData['votes'] === $maxVotes) {
                     $partyWinsCount[] = [

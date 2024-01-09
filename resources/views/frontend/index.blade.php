@@ -116,7 +116,7 @@
 
                 <div id="root"></div>
 
-                <div class="row mt-3">
+                <div class="row mt-3 text-center">
                     @auth
                         @if ($logged_in_user->isAdmin())
                             <a href="{{ route('admin.votes.index') }}" class="go-to-dashboard-link btn-lg btn-danger">@lang('Upload Votes')</a>
