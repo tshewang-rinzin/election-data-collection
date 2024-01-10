@@ -334,7 +334,7 @@ function OverallResultDzongkha() {
                                 རྒྱལ་ཡོངས་ཚོགས་འདུའི་བཙག་འཐུ། ༢༠༢༣-༢༠༢༤
                             </h2>
                             <h1 className="text-center">
-                                སྤྱིར་བཏང་བཙག་འཐུའི་ གནས་སྐབས་ཀྱི་གྲུབ་འབྲས།
+                                སྤྱིར་བཏང་བཙག་འཐུའི་མཐའ་དཔྱད་གྲུབ་འབྲས་གསལ་སྟོན།
                             </h1>
                             <div className="text-center mb-0 constituency-info">
                                 <div>
